@@ -67,7 +67,7 @@ public class SpeakerService implements Service {
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    .map(Speaker::toJson)
+                    .map(conference.Speaker::toJson)
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
 
@@ -126,7 +126,7 @@ public class SpeakerService implements Service {
 
         String id = request.path().param("id").trim();
 
-        record SpeakerWithTrack(String id, String name, String title, String company, String trackName) {
+        record Speaker(String id, String name, String title, String company, String trackName) {
             JsonObject toJson() {
                 return Json.createObjectBuilder()
                         .add("id", id)
@@ -143,12 +143,12 @@ public class SpeakerService implements Service {
                 var match = this.speakers.getById(id);
                 if (match.isPresent()) {
                     var s = match.get();
-                    var speakerWithTrack = new SpeakerWithTrack(s.id(),
+                    var speaker = new Speaker(s.id(),
                             s.firstName() + " " + s.lastName(),
                             s.title(),
                             s.company(),
                             getTrackDetail(match.get()));
-                    response.send(speakerWithTrack.toJson());
+                    response.send(speaker.toJson());
                 } else Util.sendError(response, 400, "getSpeakersById - not found: " + id);
             }
         } catch (Exception e) {
