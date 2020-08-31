@@ -1,0 +1,143 @@
+html body {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+label, input {
+    display: block;
+    font-size: 80%;
+}
+
+input.text {
+    margin-bottom: 12px;
+    width: 95%;
+    padding: .4em;
+}
+
+fieldset {
+    padding: 0;
+    border: 0;
+    margin-top: 25px;
+    font-size: 75%;
+}
+
+.title {
+    background: black;
+    color: white;
+    text-align: center;
+    font-weight: 100;
+}
+
+.container {
+    #background: #444444;
+    width: 90%;
+    padding-top: 20px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel-title {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.panel-info {
+    border-color: #555555;
+}
+
+.panel-body {
+    font-size: 1.2em;
+}
+
+.panel-info > .panel-heading {
+    background-color: #444444;
+    color: white;
+}
+
+.spkrContent {
+    #flex-grow: 1;
+}
+
+.spkrPic {
+    width: 120px;
+    height: 120px;
+}
+
+
+.picDetail {
+    width: 120px;
+    height: 120px;
+    display:block;
+    margin:auto;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.button-bar {
+    padding-left: 72px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background: rgb(58, 54, 50);
+}
+
+.portrait {
+    width: 120px;
+}
+
+.speakerCard {
+    color: white;
+    width: 370px;
+    border: 1px solid #222222;
+    background: #494D53;
+    margin: 4px;
+    padding: 1px;
+    display: flex;
+    border-radius: 6px;
+}
+
+.speakerDetail {
+    padding-top: 20px;
+}
+
+.peopleTitle {
+    width: 100%;
+    background: #FAFAFA;
+    margin: 3px;
+    padding: 2px;
+    display: flex;
+}
+
+#editDialog {
+    display: none;
+}
+
+#addDialog {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}

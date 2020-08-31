@@ -1,0 +1,209 @@
+<html>
+<meta charset="utf-8"/>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+            integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    <script src="SpeakerController.js"></script>
+
+    <script id="speakers_template" type="x-tmpl-mustache">
+<div class="row">
+    <div class="speakerCard col-sm-3" style="cursor: pointer">
+        <div>
+             <img class="spkrPic" src="avatar.png"/>
+        </div>
+        <div class="spkrContent">
+            <h4>{{firstName}} <b>{{lastName}}</b></h4>
+            {{title}}
+            <small>
+               <br>{{company}}
+               <br>{{track}} track
+            </small>
+        </div>
+    </div>
+</div>
+    </script>
+
+    <script id="detail_template" type="x-tmpl-mustache">
+<div id="editForm" class="speakerDetail col-sm-4 col-md-offset-4">
+    <div class="panel panel-info" class="click-element animate-show">
+        <div class="panel-heading panel-style">
+            <h3 class="panel-title">
+                <div id="formTitle" style="padding: 10px">
+                    Speaker details
+                    <!--button class="btn btn-primary" id="delete" type="button" onclick="deleteSpeaker()" style="float: right; position: relative; bottom: 9px;">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Delete
+                    </button-->
+                </div>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="form" novalidate>
+                <!--input type="text" id="editId" value="{{id}}" style="display: none;"-->
+                <div class="photo">
+                    <img src="avatar.png" class="picDetail"></img>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="editFirstName">First Name:</label>
+                    <div class="col-xs-8">
+                        <input type="text" id="editFirstName" name="editFirstName" value="{{firstName}}" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="lastName">Last Name:</label>
+                    <div class="col-xs-8">
+                        <input type="text" id="editLastName" name="editLastName" value="{{lastName}}" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="editTitle">Title:</label>
+                    <div class="col-xs-8">
+                        <input type="text" id="editTitle" name="editTitle" value="{{title}}" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="editCompany">Company:</label>
+                    <div class="col-xs-8">
+                        <input type="text" id="editCompany" name="editCompany" value="{{company}}" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="lastName">Track:</label>
+                    <div class="col-xs-8">
+                        <input type="text" id="editTrack" name="editTrack" value="{{track}}" class="form-control" required>
+                    </div>
+                </div>
+
+                <hr>
+                <div style="text-align: center;">
+                    <!--input type="button" id="saveButton" tabindex="-1" class="btn btn-success" value="Save" onclick="updateSpeaker()"-->
+                    <input type="button" tabindex="-1" class="btn btn-default" value="Back" onclick="loadSpeakers()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    </script>
+</head>
+
+
+<body style="background: black;" onload="loadSpeakers()">
+<h2 class="title">Oracle Developer Live - Speakers</h2>
+<ul class="button-bar">
+
+    <!--li><a href="#" onclick="showSpeakerForm()">New Speaker</a></li-->
+    <!--li>
+
+            <form>
+                <div class="col-xs-2">
+                    <button class="btn" id="home" type="button" onclick="loadSpeakers()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    </button>
+                </div>
+
+                <div class="col-xs-4">
+                    <input class="form-control " type="text" id="searchText">
+                </div>
+                <div class="col-xs-4">
+                    <select id="searchType" class="form-control">
+                        <option value="lastname">By last name</option>
+                        <option value="company">By company</option>
+                        <option value="track">By track</option>
+                    </select>
+                </div>
+                <div class="col-xs-1">
+                    <button class="btn" id="searchButton" type="button" onclick="search()">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </li-->
+</ul>
+
+
+
+<div id="people" class="container">loading...<br><br></div>
+<div id="notFound" class="alert alert-info col-sm-7"></div>
+<div id="detail"></div>
+
+<div class="col-sm-5 col-md-offset-2" id="speakerForm" style="display: none">
+    <div class="panel panel-info " class="click-element animate-show">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <div style="padding: 10px">
+                    <span id="formTitle">Add New Speaker</span>
+                    <button class="btn btn-primary"
+                            id="deleteButton" type="button"
+                            style="float: right; position: relative; bottom: 8px;">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Delete
+                    </button>
+                </div>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-horizontal" name="form" novalidate>
+                <input type="text" id="id" value="" style="display: none;">
+                <div class="photos">
+                    <img src="avatar.png">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="firstName">First name:</label>
+                    <div class="col-xs-5">
+                        <input type="text" id="firstName" name="firstName" value="" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="lastName">Last name:</label>
+                    <div class="col-xs-5">
+                        <input type="text" id="lastName" name="lastName" value="" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="track">Track:</label>
+                    <div class="col-xs-5">
+                        <input type="text" id="track" name="track" value="" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="title">Title:</label>
+                    <div class="col-xs-5">
+                        <input type="text" id="title" name="title" value="" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="company">Company:</label>
+                    <div class="col-xs-5">
+                        <input type="text" id="company" name="company" value="" class="form-control" required>
+                    </div>
+                </div>
+                <br> <br>
+                <div style="text-align: center;">
+                    <input type="button" tabindex="-1" class="btn btn-default" value="Back" onclick="loadSpeakers()">
+                    <input type="button" tabindex="-1" class="btn btn-success" value="Save" onclick="save()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
