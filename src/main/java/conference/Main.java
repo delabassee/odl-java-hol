@@ -95,7 +95,6 @@ public final class Main {
     private static Routing createRouting(Config config) {
 
         SpeakerService speakerService = new SpeakerService();
-        AgendaService agendaService = new AgendaService();
 
         var snippet = """
               <html>
@@ -113,7 +112,6 @@ public final class Main {
                     res.send(snippet);})
                 .register("/public", StaticContentSupport.builder("public").welcomeFileName("index.html"))
                 .register("/speakers", speakerService)
-                .register("/sessions", agendaService)
                 .build();
     }
 

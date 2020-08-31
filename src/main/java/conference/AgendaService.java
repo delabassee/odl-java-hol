@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-
+/*
 public class AgendaService implements Service {
 
     private static final Logger LOGGER = Logger.getLogger(AgendaService.class.getName());
@@ -125,3 +125,5 @@ public class AgendaService implements Service {
     }
 
 }
+*/
+

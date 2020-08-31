@@ -15,6 +15,7 @@
  */
 package conference;
 
+/*
 import conference.session.Keynote;
 import conference.session.Lab;
 import conference.session.Lecture;
@@ -59,3 +60,5 @@ public final class AgendaRepository {
 
 
 }
+
+*/
