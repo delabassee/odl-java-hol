@@ -73,7 +73,7 @@ public final class Main {
                 .build();
 
         server.start().thenAccept(ws -> {
-            System.out.println("WEB server is up (Lab10 branch) at: http://localhost:" + ws.port() + "/public/index.html");
+            System.out.println("WEB server is up (Lab4 branch) at: http://localhost:" + ws.port() + "/public/index.html");
             ws.whenShutdown().thenRun(() -> System.out.println("WEB server is DOWN. Bye!"));
         }).exceptionally(t -> {
             System.err.println("Startup failed: " + t.getMessage());
