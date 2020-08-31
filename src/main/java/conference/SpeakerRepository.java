@@ -16,14 +16,14 @@
 
 package conference;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -32,16 +32,19 @@ public final class SpeakerRepository {
     private final CopyOnWriteArrayList<Speaker> speakers = new CopyOnWriteArrayList<>();
 
     public SpeakerRepository() {
-        JsonbConfig config = new JsonbConfig().withFormatting(Boolean.TRUE);
+        List<Speaker> speakersList = new ArrayList<>();
+        InputStream csvFile = SpeakerRepository.class.getResourceAsStream("/speakers.csv");
 
-        Jsonb jsonb = JsonbBuilder.create(config);
-        try (InputStream jsonFile = SpeakerRepository.class.getResourceAsStream("/speakers.json")) {
-            Speaker[] speakers = jsonb.fromJson(jsonFile, Speaker[].class);
-            this.speakers.addAll(Arrays.asList(speakers));
+        try (BufferedReader csvReader = new BufferedReader(new InputStreamReader(csvFile))) {
+            String csvRow;
+            while ((csvRow = csvReader.readLine()) != null) {
+                String[] col = csvRow.split("\\|");
+                speakersList.add(new Speaker(col[0], col[1], col[2], col[3], col[4], Track.valueOf(col[5].toUpperCase())));
+            }
+            this.speakers.addAll(speakersList);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public List<Speaker> getByLastName(String name) {
@@ -55,7 +58,6 @@ public final class SpeakerRepository {
 
         List<Speaker> matchList = speakers.stream().filter((e) -> (e.getTrack() == track))
                 .collect(Collectors.toList());
-
         return matchList;
     }
 
@@ -65,7 +67,6 @@ public final class SpeakerRepository {
         List<Speaker> matchList = speakers.stream()
                 .filter((e) -> (e.getCompany().toLowerCase().contains(company.toLowerCase())))
                 .collect(Collectors.toList());
-
         return matchList;
     }
 
@@ -75,7 +76,6 @@ public final class SpeakerRepository {
         List<Speaker> allSpeakers = speakers.stream()
                 .sorted(Comparator.comparing(Speaker::getLastName))
                 .collect(Collectors.toList());
-
         return allSpeakers;
     }
 
@@ -85,7 +85,6 @@ public final class SpeakerRepository {
         Optional<Speaker> speaker = speakers.stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst();
-
         return speaker;
     }
 

@@ -55,14 +55,7 @@ public class SpeakerService implements Service {
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers);
-/*
-            response.send(allSpeakers.stream()
-                    .map(Speaker::toJson)
-                    .collect(Collectors.toList()));
-*/
-
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
-
 
     }
 
@@ -122,7 +115,6 @@ public class SpeakerService implements Service {
             if (Util.isValidQueryStr(response, id)) {
                 var match = this.speakers.getById(id);
                 if (match.isPresent()) {
-//                    response.send(match.get().toJson());
                 } else Util.sendError(response, 400, "getSpeakersById - not found: " + id);
             }
         } catch (Exception e) {

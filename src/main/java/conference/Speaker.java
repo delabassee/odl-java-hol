@@ -15,11 +15,6 @@
  */
 package conference;
 
-import java.util.UUID;
-
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
-
 public final class Speaker {
 
     private final String id;
@@ -29,28 +24,13 @@ public final class Speaker {
     private final Track track;
     private final String company;
 
-    private Speaker(String id, String firstName, String lastName, String title, Track track, String company) {
+    public Speaker(String id, String firstName, String lastName, String title, String company, Track track) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
         this.track = track;
         this.company = company;
-    }
-
-    @JsonbCreator
-    public static Speaker of(
-            @JsonbProperty("id") String id,
-            @JsonbProperty("firstName") String firstName,
-            @JsonbProperty("lastName") String lastName,
-            @JsonbProperty("title") String title,
-            @JsonbProperty("track") Track track,
-            @JsonbProperty("company") String company) {
-        if (id == null || id.trim().equals("")) {
-            id = UUID.randomUUID().toString();
-        }
-        Speaker s = new Speaker(id, firstName, lastName, title, track, company);
-        return s;
     }
 
     public String getId() {
