@@ -49,18 +49,6 @@ public class SpeakerService implements Service {
     }
 
 
-    private String getTrackDetail(Speaker speaker) {
-
-        var trackDetail = switch (speaker.track()) {
-            case DB -> "Oracle Database track";
-            case JAVA -> "Java track";
-            case MYSQL -> "MySQL track";
-        };
-
-        return trackDetail;
-    }
-
-
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
 
@@ -126,29 +114,11 @@ public class SpeakerService implements Service {
 
         String id = request.path().param("id").trim();
 
-        record SpeakerWithTrack(String id, String name, String title, String company, String trackName) {
-            JsonObject toJson() {
-                return Json.createObjectBuilder()
-                        .add("id", id)
-                        .add("name", name)
-                        .add("title", title)
-                        .add("company", company)
-                        .add("trackName", trackName)
-                        .build();
-            }
-        }
-
         try {
             if (Util.isValidQueryStr(response, id)) {
                 var match = this.speakers.getById(id);
                 if (match.isPresent()) {
-                    var s = match.get();
-                    var speakerWithTrack = new SpeakerWithTrack(s.id(),
-                            s.firstName() + " " + s.lastName(),
-                            s.title(),
-                            s.company(),
-                            getTrackDetail(match.get()));
-                    response.send(speakerWithTrack.toJson());
+                    response.send(match.get().toJson());
                 } else Util.sendError(response, 400, "getSpeakersById - not found: " + id);
             }
         } catch (Exception e) {

@@ -69,7 +69,9 @@ public class AgendaService implements Service {
             var speakerDetail = "speaker TBC!";
             var s = session.get();
 
-            if (s instanceof Keynote k) {
+            if (s instanceof Keynote) {
+
+                Keynote k = (Keynote)s;
 
                 var ks = speakers.getById(k.getKeynoteSpeaker());
                 if (ks.isPresent()) {
@@ -80,7 +82,9 @@ public class AgendaService implements Service {
                 var keynote = new SessionDetail("Keynote: " + k.getTitle(), speakerDetail, "Virtual Keynote hall", "General session");
                 response.send(keynote.toJson());
 
-            } else if (s instanceof Lecture l) {
+            } else if (s instanceof Lecture) {
+
+                Lecture l = (Lecture)s;
 
                 var speaker = speakers.getById(l.getSpeaker());
                 if (speaker.isPresent()) {
@@ -91,7 +95,9 @@ public class AgendaService implements Service {
                 var lecture = new SessionDetail(l.getTitle(), speakerDetail, String.valueOf(l.getVirtualRoom()), "Conference session");
                 response.send(lecture.toJson());
 
-            } else if (s instanceof Lab l) {
+            } else if (s instanceof Lab) {
+
+                Lab l = (Lab) s;
 
                 var speaker = speakers.getById(l.getSpeaker());
                 if (speaker.isPresent()) {
