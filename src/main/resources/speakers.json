@@ -1,0 +1,146 @@
+[
+  {
+    "id": "003",
+    "firstName": "Connor",
+    "lastName": "McDonald",
+    "title": "Developer Advocate",
+    "track": "DB",
+    "company": "Oracle"
+  },
+  {
+    "id": "004",
+    "firstName": "Chris",
+    "lastName": "Saxon",
+    "title": "Senior Developer Advocate, Database Tools",
+    "track": "DB",
+    "company": "Oracle"
+  },
+  {
+    "id": "019",
+    "firstName": "David",
+    "lastName": "Delabassee",
+    "title": "DevRel Java Platform Group",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "020",
+    "firstName": "Mark",
+    "lastName": "Reynold",
+    "title": "Chief Architect of the Java Platform Group",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "021",
+    "firstName": "Brian",
+    "lastName": "Goetz",
+    "title": "Java Language Architect",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "666",
+    "firstName": "Homer",
+    "lastName": "Simpson",
+    "title": "Tested",
+    "track": "DB",
+    "company": "Acme Inc."
+  },
+  {
+    "id": "027",
+    "firstName": "Thomas",
+    "lastName": "Wuerthinger",
+    "title": "GraalVM Project Lead",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "028",
+    "firstName": "Sean",
+    "lastName": "Mullan",
+    "title": "Technical Lead of the Java Security Libraries",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "029",
+    "firstName": "Stuart",
+    "lastName": "Marks",
+    "title": "Consulting Member of Technical Staff",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "030",
+    "firstName": "Graeme",
+    "lastName": "Rocher",
+    "title": "Micronaut Project Founder",
+    "track": "JAVA",
+    "company": "Oracle"
+  },
+  {
+    "id": "031",
+    "firstName": "Venkat",
+    "lastName": "Subramaniam",
+    "title": "Author & Owner",
+    "track": "JAVA",
+    "company": " Agile Developer, Inc"
+  },
+  {
+    "id": "014",
+    "firstName": "Steven",
+    "lastName": "Nichols",
+    "title": "Master Principal Cloud Architect",
+    "track": "DB",
+    "company": "Oracle"
+  },
+  {
+    "id": "005",
+    "firstName": "Heli",
+    "lastName": "Helskyaho",
+    "title": "Chief Executive Officer",
+    "track": "DB",
+    "company": "Miracle Finland Oy"
+  },
+  {
+    "id": "006",
+    "firstName": "Stewart",
+    "lastName": "Bryson",
+    "title": "Chief Executive Officer",
+    "track": "DB",
+    "company": "Red Pill Analytics"
+  },
+  {
+    "id": "007",
+    "firstName": "Lucas",
+    "lastName": "Jellema",
+    "title": "Cloud Solution Architect and Chief Technology Officer",
+    "track": "DB",
+    "company": "AMIS"
+  },
+  {
+    "id": "008",
+    "firstName": "Sanjay",
+    "lastName": "Goil",
+    "title": "Vice President, Product Management",
+    "track": "DB",
+    "company": "Oracle"
+  },
+  {
+    "id": "011",
+    "firstName": "David",
+    "lastName": "Lapp",
+    "title": "Senior Principal Product Manager",
+    "track": "DB",
+    "company": "Oracle"
+  },
+  {
+    "id": "012",
+    "firstName": "Josh",
+    "lastName": "Spiegel",
+    "title": "Consulting Member of Technical Staff",
+    "track": "DB",
+    "company": "Oracle"
+  }
+]

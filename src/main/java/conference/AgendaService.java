@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package conference;
-
+/*
 import conference.session.*;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.ServerRequest;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-/*
+
 public class AgendaService implements Service {
 
     private static final Logger LOGGER = Logger.getLogger(AgendaService.class.getName());
