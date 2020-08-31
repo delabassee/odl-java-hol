@@ -96,20 +96,7 @@ public final class Main {
 
         SpeakerService speakerService = new SpeakerService();
 
-        var snippet = """
-              <html>
-                 <title>Almost there</title>
-                 <body>
-                    You are being redirected...
-                    <meta http-equiv="refresh" content="0; url=/public/" />
-                </body>
-              </html>
-              """;
-
         return Routing.builder()
-                .get("/", (req, res) -> {
-                    res.headers().contentType(MediaType.TEXT_HTML);
-                    res.send(snippet);})
                 .register("/public", StaticContentSupport.builder("public").welcomeFileName("index.html"))
                 .register("/speakers", speakerService)
                 .build();
