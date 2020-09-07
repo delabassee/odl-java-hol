@@ -49,28 +49,26 @@ public class SpeakerService implements Service {
     }
 
 
-    private String getTrackDetail(Speaker speaker) {
-
-        var trackDetail = switch (speaker.track()) {
-            case DB -> "Oracle Database track";
-            case JAVA -> "Java track";
-            case MYSQL -> "MySQL track";
-        };
-
-        return trackDetail;
-    }
-
-
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
+
+        record SpeakerSummary(String last, String first, String company) {
+            JsonObject toJson() {
+                JsonObject payload = Json.createObjectBuilder()
+                        .add("speaker", first() + " " + last())
+                        .add("company", company())
+                        .build();
+                return payload;
+            }
+        }
 
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    .map(conference.Speaker::toJson)
+                    .map(Speaker::toJson)
+                    //.map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()).toJson())
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
-
 
     }
 
@@ -120,6 +118,19 @@ public class SpeakerService implements Service {
         }
 
     }
+    
+    private String getTrackDetail(Speaker speaker) {
+
+        var trackDetail = switch (speaker.track()) {
+            case DB -> "Oracle Database";
+            case JAVA -> "Java";
+            case MYSQL -> "MySQL";
+        };
+
+        return trackDetail + " track";
+
+    }
+
 
     private void getSpeakersById(ServerRequest request, ServerResponse response) {
         LOGGER.fine("getSpeakersById");
