@@ -52,6 +52,7 @@ public class SpeakerService implements Service {
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
 
+/*
         record SpeakerSummary(String last, String first, String company) {
             JsonObject toJson() {
                 JsonObject payload = Json.createObjectBuilder()
@@ -61,6 +62,7 @@ public class SpeakerService implements Service {
                 return payload;
             }
         }
+*/
 
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
@@ -118,7 +120,7 @@ public class SpeakerService implements Service {
         }
 
     }
-    
+
     private String getTrackDetail(Speaker speaker) {
 
         var trackDetail = switch (speaker.track()) {
@@ -127,8 +129,7 @@ public class SpeakerService implements Service {
             case MYSQL -> "MySQL";
         };
 
-        return trackDetail + " track";
-
+        return trackDetail + " track!";
     }
 
 
