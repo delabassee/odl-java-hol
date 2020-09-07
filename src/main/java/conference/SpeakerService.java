@@ -52,13 +52,23 @@ public class SpeakerService implements Service {
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
 
+        record SpeakerSummary(String last, String first, String company) {
+            JsonObject toJson() {
+                JsonObject payload = Json.createObjectBuilder()
+                        .add("speaker", first() + " " + last())
+                        .add("company", company())
+                        .build();
+                return payload;
+            }
+        }
+
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    .map(Speaker::toJson)
+                    //.map(Speaker::toJson)
+                    .map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()).toJson())
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
-
 
     }
 
@@ -68,8 +78,11 @@ public class SpeakerService implements Service {
         var lastname = request.path().param("lastname").trim();
         if (Util.isValidQueryStr(response, lastname)) {
             var match = this.speakers.getByLastName(lastname);
-            if (match.size() > 0) response.send(match);
-            else Util.sendError(response, 400, "getByLastName - not found: " + lastname);
+            if (match.size() > 0) {
+                response.send(match.stream()
+                        .map(Speaker::toJson)
+                        .collect(Collectors.toList()));
+            } else Util.sendError(response, 400, "getByLastName - not found: " + lastname);
         } else {
             Util.sendError(response, 500, "Internal error! getByLastName");
         }
@@ -84,8 +97,11 @@ public class SpeakerService implements Service {
             var trackName = request.path().param("track").trim();
             Track track = Track.valueOf(trackName.toUpperCase());
             var match = this.speakers.getByTrack(track);
-            if (match.size() > 0) response.send(match);
-            else Util.sendError(response, 400, "getByTrack - not found: " + trackName);
+            if (match.size() > 0) {
+                response.send(match.stream()
+                        .map(Speaker::toJson)
+                        .collect(Collectors.toList()));
+            } else Util.sendError(response, 400, "getByTrack - not found: " + trackName);
         } catch (Exception e) {
             Util.sendError(response, 500, "Internal error! getByTrack: " + e.getMessage());
         }
@@ -100,8 +116,11 @@ public class SpeakerService implements Service {
             var companyName = request.path().param("companyName").trim();
             if (Util.isValidQueryStr(response, companyName)) {
                 var match = this.speakers.getByCompany(companyName);
-                if (match.size() > 0) response.send(match);
-                else Util.sendError(response, 400, "getByCompany - not found: " + companyName);
+                if (match.size() > 0) {
+                    response.send(match.stream()
+                            .map(Speaker::toJson)
+                            .collect(Collectors.toList()));
+                } else Util.sendError(response, 400, "getByCompany - not found: " + companyName);
             }
         } catch (Exception e) {
             Util.sendError(response, 500, "Internal error! getByCompany: " + e.getMessage());
@@ -113,7 +132,6 @@ public class SpeakerService implements Service {
         LOGGER.fine("getSpeakersById");
 
         String id = request.path().param("id").trim();
-
         try {
             if (Util.isValidQueryStr(response, id)) {
                 var match = this.speakers.getById(id);
