@@ -43,10 +43,10 @@ public class AgendaService implements Service {
     @Override
     public void update(Routing.Rules rules) {
         rules.get("/", this::getAll);
-        rules.get("/detail/{sessionId}", this::getSessionDetails);
+        //rules.get("/detail/{sessionId}", this::getSessionDetails);
     }
 
-    private void getSessionDetails(final ServerRequest request, final ServerResponse response) {
+/*    private void getSessionDetails(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getSessionDetails");
 
         var sessionId = request.path().param("sessionId").trim();
@@ -106,7 +106,7 @@ public class AgendaService implements Service {
         } else {
             Util.sendError(response, 400, "SessionId not found : " + sessionId);
         }
-    }
+    }*/
 
 
     private void getAll(final ServerRequest request, final ServerResponse response) {
