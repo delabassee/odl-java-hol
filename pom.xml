@@ -2,7 +2,7 @@
 
 <!--
 
-    Copyright (c) 2019, 2020 Oracle and/or its affiliates.
+    Copyright (c) 2019, 2021 Oracle and/or its affiliates.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -44,6 +44,10 @@
             <groupId>io.helidon.media</groupId>
             <artifactId>helidon-media-jsonb</artifactId>
         </dependency>
+		<!--dependency>
+		    <groupId>io.helidon.media</groupId>
+		    <artifactId>helidon-media-jackson</artifactId>
+		</dependency-->
         <dependency>
             <groupId>io.helidon.media</groupId>
             <artifactId>helidon-media-jsonp</artifactId>
@@ -55,7 +59,16 @@
     </dependencies>
 
     <build>
-        <plugins>
+		<plugins>
+		    <plugin>
+		       <groupId>org.apache.maven.plugins</groupId>
+		       <artifactId>maven-compiler-plugin</artifactId>
+		       <version>3.8.0</version>
+		       <configuration>
+		         <release>16</release>
+		         <compilerArgs>--enable-preview</compilerArgs>
+		       </configuration>
+		    </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
