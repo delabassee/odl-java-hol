@@ -57,7 +57,7 @@ function showResults(data){
     $("#notFound").hide();
     data.forEach(function(speaker) {
         var item = $(renderSpeakers(speaker));
-        item.on("click", function() {
+/*        item.on("click", function() {
             var detailItem = $(renderSpeakerDetails(speaker));
             $("#home").hide();
             $("#detail").empty();                                   
@@ -69,7 +69,7 @@ function showResults(data){
                 function() {
                     $("#detail").show()
                 });
-        });
+        });*/
         $("#people").append(item);
     });
 }
