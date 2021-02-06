@@ -46,50 +46,63 @@ public class AgendaService implements Service {
         rules.get("/detail/{sessionId}", this::getSessionDetails);
     }
 
+   @Override
+    public void update(Routing.Rules rules) {
+        rules.get("/", this::getAll);
+        rules.get("/detail/{sessionId}", this::getSessionDetails);
+    }
+
     private void getSessionDetails(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getSessionDetails");
 
         var sessionId = request.path().param("sessionId").trim();
 
         Optional<Session> session = sessions.getBySessionId(sessionId);
+
         if (session.isPresent()) {
 
             record SessionDetail(String title, String speaker, String location, String type) { }
 
-            var speakerDetail = "speaker TBC!";
+            var detail = "speaker TBC!";
             var s = session.get();
 
-            if (s instanceof Keynote k) {
+            if (s instanceof Keynote) {
+
+                Keynote k = (Keynote) s;
 
                 var ks = speakers.getById(k.getKeynoteSpeaker());
                 if (ks.isPresent()) {
                     var spk = ks.get();
-                    speakerDetail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
-                } else speakerDetail = "Keynote speaker to be announced!";
+                    detail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
+                } else detail = "Keynote speaker to be announced!";
 
-                var keynote = new SessionDetail("Keynote: " + k.getTitle(), speakerDetail, "Virtual Keynote hall", "General session");
+                var keynote = new SessionDetail("Keynote: " + k.getTitle(), detail, "Virtual Keynote hall", "General session");
                 response.send(keynote);
 
-            } else if (s instanceof Lecture l) {
+            } else if (s instanceof Lecture) {
+
+                Lecture l = (Lecture) s;
 
                 var speaker = speakers.getById(l.getSpeaker());
                 if (speaker.isPresent()) {
                     var spk = speaker.get();
-                    speakerDetail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
+                    detail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
                 }
 
-                var lecture = new SessionDetail(l.getTitle(), speakerDetail, String.valueOf(l.getVirtualRoom()), "Conference session");
+                var lecture = new SessionDetail(l.getTitle(), detail, String.valueOf(l.getVirtualRoom()), "Conference session");
                 response.send(lecture);
 
-            } else if (s instanceof Lab l) {
+            } else if (s instanceof Lab) {
+
+                Lab l = (Lab) s;
 
                 var speaker = speakers.getById(l.getSpeaker());
                 if (speaker.isPresent()) {
                     var spk = speaker.get();
-                    speakerDetail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
+                    detail = spk.firstName() + " " + spk.lastName() + " (" + spk.company() + ")";
                 }
 
-                var lab = new SessionDetail(l.getTitle(), speakerDetail, String.valueOf(l.getVirtualRoom()), "Hands on Lab");
+                var lab = new SessionDetail(l.getTitle(), detail, String.valueOf(l.getVirtualRoom()), "Hands on Lab");
                 response.send(lab);
             }
 
@@ -97,7 +110,6 @@ public class AgendaService implements Service {
             Util.sendError(response, 400, "SessionId not found : " + sessionId);
         }
     }
-
 
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getSessionsAll");
