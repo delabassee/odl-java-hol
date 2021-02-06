@@ -57,7 +57,7 @@ function showResults(data){
     $("#notFound").hide();
     data.forEach(function(speaker) {
         var item = $(renderSpeakers(speaker));
-        item.on("click", function() {
+/*        item.on("click", function() {
             var detailItem = $(renderSpeakerDetails(speaker));
             $("#home").hide();
             $("#detail").empty();                                   
@@ -69,7 +69,7 @@ function showResults(data){
                 function() {
                     $("#detail").show()
                 });
-        });
+        });*/
         $("#people").append(item);
     });
 }
@@ -119,12 +119,8 @@ function renderSpeakerDetails(speaker){
     var template = $('#detail_template').html();
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
-        "id" : speaker.id,
-        "firstName" : speaker.firstName,
-        "lastName" : speaker.lastName,
-        "title" : speaker.title,
+		"speaker" : speaker.speaker,
         "company" : speaker.company,
-        "track" : speaker.track
     });
     return rendered;
 }
