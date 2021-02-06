@@ -19,13 +19,16 @@
              <img class="spkrPic" src="avatar.png"/>
         </div>
         <div class="spkrContent">
-            <h4><b>{{speaker}}</b></h4>
+            <h4>{{firstName}} <b>{{lastName}}</b></h4>
+            {{title}}
             <small>
                <br>{{company}}
-            </small>
+               <br>Track {{track}}
         </div>
     </div>
 </div>
+
+
     </script>
 
     <script id="detail_template" type="x-tmpl-mustache">
@@ -93,6 +96,8 @@
 </div>
 
 
+
+
     </script>
 </head>
 
@@ -131,7 +136,6 @@
         </div>
     </li-->
 </ul>
-
 
 
 <div id="people" class="container">loading...<br><br></div>

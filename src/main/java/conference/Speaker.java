@@ -24,18 +24,4 @@ public record Speaker (String id,
                        String lastName,
                        String title,
                        String company,
-                       Track track) {
-
-    JsonObject toJson() {
-        JsonObject payload = Json.createObjectBuilder()
-                .add("id", id)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("title", title)
-                .add("company", company)
-                .add("track", track.toString())
-                .build();
-        return payload;
-    }
-
-}
+                       Track track) { }

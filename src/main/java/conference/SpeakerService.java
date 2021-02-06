@@ -20,8 +20,6 @@ import io.helidon.webserver.ServerRequest;
 import io.helidon.webserver.ServerResponse;
 import io.helidon.webserver.Service;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -48,16 +46,12 @@ public class SpeakerService implements Service {
                 .get("/{id}", this::getSpeakersById);
     }
 
-
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
-
-        record SpeakerSummary(String last, String first, String company) {}
 
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    .map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()))
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
 
@@ -71,7 +65,6 @@ public class SpeakerService implements Service {
             var match = this.speakers.getByLastName(lastname);
             if (match.size() > 0) {
                 response.send(match.stream()
-                        .map(Speaker::toJson)
                         .collect(Collectors.toList()));
             } else Util.sendError(response, 400, "getByLastName - not found: " + lastname);
         } else {
@@ -90,7 +83,6 @@ public class SpeakerService implements Service {
             var match = this.speakers.getByTrack(track);
             if (match.size() > 0) {
                 response.send(match.stream()
-                        .map(Speaker::toJson)
                         .collect(Collectors.toList()));
             } else Util.sendError(response, 400, "getByTrack - not found: " + trackName);
         } catch (Exception e) {
@@ -109,7 +101,6 @@ public class SpeakerService implements Service {
                 var match = this.speakers.getByCompany(companyName);
                 if (match.size() > 0) {
                     response.send(match.stream()
-                            .map(Speaker::toJson)
                             .collect(Collectors.toList()));
                 } else Util.sendError(response, 400, "getByCompany - not found: " + companyName);
             }
@@ -127,7 +118,7 @@ public class SpeakerService implements Service {
             if (Util.isValidQueryStr(response, id)) {
                 var match = this.speakers.getById(id);
                 if (match.isPresent()) {
-                    response.send(match.get().toJson());
+                    response.send(match.get());
                 } else Util.sendError(response, 400, "getSpeakersById - not found: " + id);
             }
         } catch (Exception e) {
