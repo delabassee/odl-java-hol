@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates.
+ * Copyright (c) 2021 Oracle and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,8 @@ public final class Main {
                 .get("/", (req, res) -> {
                     res.headers().contentType(MediaType.TEXT_HTML);
                     res.send(snippet);})
-                .register("/public", StaticContentSupport.builder("public").welcomeFileName("index.html"))
+                .register("/public", StaticContentSupport.builder("public")
+                                                                    .welcomeFileName("index.html"))
                 .register("/speakers", speakerService)
                 .build();
     }
