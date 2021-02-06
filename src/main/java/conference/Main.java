@@ -18,7 +18,7 @@ package conference;
 
 import io.helidon.common.http.MediaType;
 import io.helidon.config.Config;
-import io.helidon.media.jsonb.JsonbSupport;
+import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.jsonp.JsonpSupport;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.StaticContentSupport;
@@ -69,7 +69,7 @@ public final class Main {
         WebServer server = WebServer.builder(createRouting(config))
                 .config(config.get("server"))
                 .addMediaSupport(JsonpSupport.create())
-                .addMediaSupport(JsonbSupport.create())
+                .addMediaSupport(JacksonSupport.create())
                 .build();
 
         server.start().thenAccept(ws -> {

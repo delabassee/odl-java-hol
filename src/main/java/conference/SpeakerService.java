@@ -52,21 +52,12 @@ public class SpeakerService implements Service {
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
 
-        record SpeakerSummary(String last, String first, String company) {
-            JsonObject toJson() {
-                JsonObject payload = Json.createObjectBuilder()
-                        .add("speaker", first() + " " + last())
-                        .add("company", company())
-                        .build();
-                return payload;
-            }
-        }
+        record SpeakerSummary(String last, String first, String company) {}
 
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    //.map(Speaker::toJson)
-                    .map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()).toJson())
+                    .map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()))
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
 
