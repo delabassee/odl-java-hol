@@ -119,12 +119,8 @@ function renderSpeakerDetails(speaker){
     var template = $('#detail_template').html();
     Mustache.parse(template);
     var rendered = Mustache.render(template,{
-        "id" : speaker.id,
-        "firstName" : speaker.firstName,
-        "lastName" : speaker.lastName,
-        "title" : speaker.title,
+		"speaker" : speaker.speaker,
         "company" : speaker.company,
-        "track" : speaker.track
     });
     return rendered;
 }
