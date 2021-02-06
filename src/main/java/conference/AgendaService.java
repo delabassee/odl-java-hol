@@ -54,17 +54,7 @@ public class AgendaService implements Service {
         Optional<Session> session = sessions.getBySessionId(sessionId);
         if (session.isPresent()) {
 
-            record SessionDetail(String title, String speaker, String location, String type) {
-                JsonObject toJson() {
-                    JsonObject payload = Json.createObjectBuilder()
-                            .add("session", title)
-                            .add("speaker", speaker)
-                            .add("virtual_room", location)
-                            .add("type", type)
-                            .build();
-                    return payload;
-                }
-            }
+            record SessionDetail(String title, String speaker, String location, String type) { }
 
             var speakerDetail = "speaker TBC!";
             var s = session.get();
@@ -78,7 +68,7 @@ public class AgendaService implements Service {
                 } else speakerDetail = "Keynote speaker to be announced!";
 
                 var keynote = new SessionDetail("Keynote: " + k.getTitle(), speakerDetail, "Virtual Keynote hall", "General session");
-                response.send(keynote.toJson());
+                response.send(keynote);
 
             } else if (s instanceof Lecture l) {
 
@@ -89,7 +79,7 @@ public class AgendaService implements Service {
                 }
 
                 var lecture = new SessionDetail(l.getTitle(), speakerDetail, String.valueOf(l.getVirtualRoom()), "Conference session");
-                response.send(lecture.toJson());
+                response.send(lecture);
 
             } else if (s instanceof Lab l) {
 
@@ -100,7 +90,7 @@ public class AgendaService implements Service {
                 }
 
                 var lab = new SessionDetail(l.getTitle(), speakerDetail, String.valueOf(l.getVirtualRoom()), "Hands on Lab");
-                response.send(lab.toJson());
+                response.send(lab);
             }
 
         } else {
