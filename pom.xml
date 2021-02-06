@@ -40,10 +40,6 @@
             <groupId>io.helidon.webserver</groupId>
             <artifactId>helidon-webserver</artifactId>
         </dependency>
-        <!--dependency>
-            <groupId>io.helidon.media</groupId>
-            <artifactId>helidon-media-jsonb</artifactId>
-        </dependency-->
         <dependency>
             <groupId>io.helidon.media</groupId>
             <artifactId>helidon-media-jackson</artifactId>

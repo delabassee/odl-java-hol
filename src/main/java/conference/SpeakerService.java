@@ -20,8 +20,6 @@ import io.helidon.webserver.ServerRequest;
 import io.helidon.webserver.ServerResponse;
 import io.helidon.webserver.Service;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -52,23 +50,9 @@ public class SpeakerService implements Service {
     private void getAll(final ServerRequest request, final ServerResponse response) {
         LOGGER.fine("getAll");
 
-/*
-        record SpeakerSummary(String last, String first, String company) {
-            JsonObject toJson() {
-                JsonObject payload = Json.createObjectBuilder()
-                        .add("speaker", first() + " " + last())
-                        .add("company", company())
-                        .build();
-                return payload;
-            }
-        }
-*/
-
         List<Speaker> allSpeakers = this.speakers.getAll();
         if (allSpeakers.size() > 0) {
             response.send(allSpeakers.stream()
-                    .map(Speaker::toJson)
-                    //.map(s -> new SpeakerSummary(s.lastName(), s.firstName(), s.company()).toJson())
                     .collect(Collectors.toList()));
         } else Util.sendError(response, 400, "getAll - no speaker found!?");
 
@@ -138,29 +122,19 @@ public class SpeakerService implements Service {
 
         String id = request.path().param("id").trim();
 
-        record Speaker(String id, String name, String title, String company, String trackName) {
-            JsonObject toJson() {
-                return Json.createObjectBuilder()
-                        .add("id", id)
-                        .add("name", name)
-                        .add("title", title)
-                        .add("company", company)
-                        .add("trackName", trackName)
-                        .build();
-            }
-        }
+        record SpeakerDetail(String id, String name, String title, String company, String trackName) {}
 
         try {
             if (Util.isValidQueryStr(response, id)) {
                 var match = this.speakers.getById(id);
                 if (match.isPresent()) {
                     var s = match.get();
-                    var speaker = new Speaker(s.id(),
+                    var detail = new SpeakerDetail(s.id(),
                             s.firstName() + " " + s.lastName(),
                             s.title(),
                             s.company(),
                             getTrackDetail(match.get()));
-                    response.send(speaker.toJson());
+                    response.send(detail);
                 } else Util.sendError(response, 400, "getSpeakersById - not found: " + id);
             }
         } catch (Exception e) {

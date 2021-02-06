@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,10 @@
 
 package conference;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 
 public record Speaker (String id,
                        String firstName,
                        String lastName,
                        String title,
                        String company,
-                       Track track) {
-
-    JsonObject toJson() {
-        JsonObject payload = Json.createObjectBuilder()
-                .add("id", id)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("title", title)
-                .add("company", company)
-                .add("track", track.toString())
-                .build();
-        return payload;
-    }
-
-}
+                       Track track) {}
