@@ -16,7 +16,7 @@ public final class AgendaRepository {
     public AgendaRepository() {
 
         var keynote = new Keynote("001", "007", "The Future of Java Is Now");
-        var s1 = new Lecture("005", "Java Language Futures - Mid 2020 Edition", "021", "https://speakerdeck/s1");
+        var s1 = new Lecture("005", "Java Language Futures - Early 2021 Edition", "021", "https://speakerdeck/s1");
         var s2 = new Lecture("006", "ZGC: The Next Generation Low-Latency Garbage Collector", "005", "https://slideshare/s2");
         var s3 = new Lecture("007", "Continuous Monitoring with JDK Flight Recorder (JFR)", "010", "https://speakerdeck/007");
         var hol1 = new Lab("010", "Building Java Cloud Native Applications with Micronaut and OCI", "030", "https://github.com/micronaut");
